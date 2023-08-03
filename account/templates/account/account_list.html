@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <ul>
+        {% for account in accounts %}
+            <li>
+                <h4>{{ account.full_name }}</h4>
+                <span>Username: {{ account.username }}</span>
+                <br>
+                <span>Role: {{ account.role }}</span>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
