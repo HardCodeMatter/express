@@ -2,11 +2,30 @@ from django.contrib import admin
 from django.contrib.auth.models import Group
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from account.models import Account
+from account.models import AccountRole, Account
 from account.forms import AccountChangeForm, AccountCreationForm
 
 
 admin.site.unregister(Group)
+
+
+@admin.register(AccountRole)
+class AccountRoleAdmin(admin.ModelAdmin):
+    list_display = ('name',)
+    list_filter = ('name',)
+
+    fieldsets = (
+        (None, {'fields': ('name',)}),
+        ('Permissions', {'fields': (
+            'is_create_role',
+            'is_update_role',
+            'is_assign_role',
+            'is_remove_role',
+        )}),
+    )
+
+    search_fields = ('name',)
+    ordering = ('name',)
 
 
 @admin.register(Account)
@@ -18,7 +37,7 @@ class AccountAdmin(BaseUserAdmin):
     list_filter = ('username', 'first_name', 'last_name', 'email',)
 
     fieldsets = (
-        (None, {'fields': ('username', 'email', 'password')}),
+        (None, {'fields': ('username', 'email', 'password', 'role',)}),
         ('Personal info', {'fields': (
             'first_name',
             'last_name',

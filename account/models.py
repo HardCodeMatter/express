@@ -4,6 +4,22 @@ from django.utils import timezone
 from account.managers import AccountManager
 
 
+class AccountRole(models.Model):
+    name = models.CharField('name', max_length=30, unique=True)
+
+    is_create_role = models.BooleanField('Create role', blank=True, default=False)
+    is_update_role = models.BooleanField('Update role', blank=True, default=False)
+    is_assign_role = models.BooleanField('Assign role', blank=True, default=False)
+    is_remove_role = models.BooleanField('Remove role', blank=True, default=False)
+
+    def __str__(self) -> str:
+        return self.name
+    
+    class Meta:
+        verbose_name = 'Account\'s role'
+        verbose_name_plural = 'Account\'s roles'
+
+
 class Account(AbstractBaseUser, PermissionsMixin):
     username = models.CharField('username', max_length=30, unique=True)
     email = models.EmailField('email', unique=True)
@@ -12,7 +28,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField('last name', max_length=30)
     biography = models.TextField('biography', max_length=150, blank=True, null=True)
 
-    data_joined = models.DateTimeField('data of joined', default=timezone.now)
+    role = models.ForeignKey(AccountRole, on_delete=models.CASCADE, blank=True, null=True, default=None)
+
+    date_joined = models.DateTimeField('date of joined', default=timezone.now)
 
     is_active = models.BooleanField('active', default=True)
     is_banned = models.BooleanField('banned', default=False)
