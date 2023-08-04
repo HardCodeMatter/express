@@ -3,14 +3,16 @@
 {% block content %}
     <ul>
         {% for issue in issues %}
-            <li>
-                <h4>{{ issue.title }}</h4>
-                <p>{{ issue.subtitle }}</p>
-                <b>{{ issue.writer }}</b>
-                <div>{{ issue.date_published }}</div>
-
-                <p>{{ issue.content }}</p>
-            </li>
+            <a href="{% url 'issue_detail' issue.id %}">
+                <li>
+                    <h4>{{ issue.title }}</h4>
+                    <p>{{ issue.subtitle }}</p>
+                    <b>{{ issue.writer }}</b>
+                    <div>{{ issue.date_published }}</div>
+    
+                    <p>{{ issue.content }}</p>
+                </li>
+            </a>
         {% endfor %}
     </ul>
 {% endblock %}

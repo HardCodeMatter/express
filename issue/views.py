@@ -10,3 +10,12 @@ def issue_list_view(request: HttpResponse) -> HttpResponse:
     }
 
     return render(request, 'issue/issue_list.html', context)
+
+def issue_detail_view(request: HttpResponse, id: int) -> HttpResponse:
+    issue: Issue = Issue.objects.get(id=id)
+
+    context = {
+        'issue': issue,
+    }
+
+    return render(request, 'issue/issue_detail.html', context)
