@@ -16,11 +16,15 @@ class AccountRoleAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {'fields': ('name',)}),
-        ('Permissions', {'fields': (
+        ('Role permissions', {'fields': (
             'is_create_role',
             'is_update_role',
             'is_assign_role',
             'is_remove_role',
+        )}),
+        ('Issue permissions', {'fields': (
+            'is_update_issue',
+            'is_remove_issue',
         )}),
     )
 
