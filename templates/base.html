@@ -6,8 +6,20 @@
     <title>TechExpress - 2023</title>
 </head>
 <body>
-    <div>
-        <a href="{% url 'issue_create' %}">Write</a>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h4>{{ user.full_name }}</h4>
+        </div>
+
+        <div>
+            {% if user.is_authenticated %}
+                <a href="{% url 'issue_create' %}">Write</a>
+                <a style="color: firebrick;" href="{% url 'logout' %}">Log out</a>
+            {% else %}
+                <a href="{% url 'login' %}">Log in</a>
+                <a href="/register/">Sign up</a>
+            {% endif %}
+        </div>
     </div>
     
     {% block content %}{% endblock %}

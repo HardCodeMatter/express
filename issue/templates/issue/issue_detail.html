@@ -7,6 +7,9 @@
         <b>{{ issue.writer }}</b>
         <div>{{ issue.date_published }}</div>
 
+        {% if issue.image %}
+            <img src="{{ issue.image.url }}" alt="">
+        {% endif %}
         <p>{{ issue.content }}</p>
     </div>
 {% endblock %}
