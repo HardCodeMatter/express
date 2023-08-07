@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, HttpResponse
 
-from issue.models import Issue
-from issue.forms import IssueForm
+from issue.models import Issue, Tag
+from issue.forms import IssueForm, TagForm
 
 
 def issue_list_view(request: HttpResponse) -> HttpResponse:
@@ -44,3 +44,24 @@ def issue_create_view(request: HttpResponse) -> HttpResponse:
     }
 
     return render(request, 'issue/issue_create.html', context)
+
+
+def tag_create_view(request: HttpResponse) -> HttpResponse:
+    if request.method == 'POST':
+        form = TagForm(request.POST)
+
+        if form.is_valid():
+            Tag.objects.create(
+                name=form.cleaned_data['name'],
+                author=request.user,
+            )
+
+            return redirect(f'/issue/tags/')
+    else:
+        form = TagForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'issue/tag_create.html', context)
