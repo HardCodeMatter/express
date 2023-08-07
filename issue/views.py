@@ -46,6 +46,15 @@ def issue_create_view(request: HttpResponse) -> HttpResponse:
     return render(request, 'issue/issue_create.html', context)
 
 
+def tag_list_view(request: HttpResponse) -> HttpResponse:
+    tags: Tag = Tag.objects.all()
+
+    context = {
+        'tags': tags,
+    }
+    
+    return render(request, 'issue/tag_list.html', context)
+
 def tag_create_view(request: HttpResponse) -> HttpResponse:
     if request.method == 'POST':
         form = TagForm(request.POST)

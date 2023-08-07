@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <ul>
+            {% for tag in tags %}
+                <li>
+                    <h4>{{ tag.name }}</h4>
+                    <div>{{ tag.author }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
