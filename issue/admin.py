@@ -1,6 +1,19 @@
 from django.contrib import admin
 
-from issue.models import Issue
+from issue.models import Tag, Issue
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'author',)
+    list_filter = ('name', 'author',)
+
+    fieldsets = (
+        ('None', {'fields': ('name', 'author',)}),
+    )
+
+    search_fields = ('name', 'author',)
+    ordering = ('-id',)
 
 
 @admin.register(Issue)
@@ -16,6 +29,9 @@ class IssueAdmin(admin.ModelAdmin):
         )}),
         ('Publishment', {'fields': (
             'writer',
+        )}),
+        ('Tags', {'fields': (
+            'tags',
         )}),
     )
 

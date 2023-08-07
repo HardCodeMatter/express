@@ -9,6 +9,12 @@
                     <p>{{ issue.subtitle }}</p>
                     <b>{{ issue.writer }}</b>
                     <div>{{ issue.date_published }}</div>
+
+                    <ol>
+                        {% for tag in issue.tags.all %}
+                            <li>{{ tag.name }}</li>
+                        {% endfor %}
+                    </ol>
     
                     <p>{{ issue.content }}</p>
                 </li>
