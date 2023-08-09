@@ -3,22 +3,23 @@
 {% block content %}
     <ul>
         {% for issue in issues %}
-            <a href="{% url 'issue_detail' issue.id %}">
-                <li>
-                    <h4>{{ issue.title }}</h4>
-                    <p>{{ issue.subtitle }}</p>
-                    <b>{{ issue.writer }}</b>
-                    <div>{{ issue.date_published }}</div>
+            <li>
+                <h4>
+                    <a href="{% url 'issue_detail' issue.id %}">{{ issue.title }}</a>
+                    
+                    {% for tag in issue.tags.all %}
+                        <small>
+                            <a href="{% url 'issue_list_by_tag' tag.id %}">#{{ tag.name }}</a>
+                        </small>
+                    {% endfor %}
+                </h4>
 
-                    <ol>
-                        {% for tag in issue.tags.all %}
-                            <li>{{ tag.name }}</li>
-                        {% endfor %}
-                    </ol>
-    
-                    <p>{{ issue.content }}</p>
-                </li>
-            </a>
+                <p>{{ issue.subtitle }}</p>
+                <b>{{ issue.writer }}</b>
+                <div>{{ issue.date_published }}</div>
+
+                <p>{{ issue.content }}</p>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

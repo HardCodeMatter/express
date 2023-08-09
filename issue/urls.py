@@ -8,5 +8,6 @@ urlpatterns = [
     path('create/', views.issue_create_view, name='issue_create'),
 
     path('tags/', views.tag_list_view, name='tag_list'),
+    path('tags/<int:tag_id>/', views.issue_list_by_tag_view, name='issue_list_by_tag'),
     path('tags/create/', views.tag_create_view, name='tag_create'),
 ]

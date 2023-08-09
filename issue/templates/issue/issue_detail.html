@@ -2,7 +2,15 @@
 
 {% block content %}
     <div>
-        <h4>{{ issue.title }}</h4>
+        <h4>
+            {{ issue.title }}
+
+            {% for tag in issue.tags.all %}
+                <small>
+                    <a href="{% url 'issue_list_by_tag' tag.id %}">#{{ tag.name }}</a>
+                </small>
+            {% endfor %}
+        </h4>
         <p>{{ issue.subtitle }}</p>
         <b>{{ issue.writer }}</b>
         <div>{{ issue.date_published }}</div>

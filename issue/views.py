@@ -55,6 +55,15 @@ def tag_list_view(request: HttpResponse) -> HttpResponse:
     
     return render(request, 'issue/tag_list.html', context)
 
+def issue_list_by_tag_view(request: HttpResponse, tag_id: int) -> HttpResponse:
+    issues: Issue = Issue.objects.filter(tags=tag_id)
+
+    context = {
+        'issues': issues,
+    }
+
+    return render(request, 'issue/issue_list_by_tags.html', context)
+
 def tag_create_view(request: HttpResponse) -> HttpResponse:
     if request.method == 'POST':
         form = TagForm(request.POST)

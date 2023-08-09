@@ -5,7 +5,9 @@
         <ul>
             {% for tag in tags %}
                 <li>
-                    <h4>{{ tag.name }}</h4>
+                    <h4>
+                        <a href="{% url 'issue_list_by_tag' tag.id %}">{{ tag.name }}</a>
+                    </h4>
                     <div>{{ tag.author }}</div>
                 </li>
             {% endfor %}

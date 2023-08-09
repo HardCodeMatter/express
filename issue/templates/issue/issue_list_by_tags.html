@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <ul>
+            {% for issue in issues %}
+                <li>
+                    <h4>
+                        <a href="{% url 'issue_detail' issue.id %}">{{ issue.title }}</a>
+
+                        {% for tag in issue.tags.all %}
+                            <small>
+                                <a href="{% url 'issue_list_by_tag' tag.id %}">#{{ tag.name }}</a>
+                            </small>
+                        {% endfor %}
+                    </h4>
+                    <div>{{ issue.writer }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
