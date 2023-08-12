@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div>
+        <form action="" method="get">
+            <input type="text" name="query_issue" placeholder="Enter issue's title">
+    
+            <button type="submit">Search</button>
+        </form>
+
+        <ul>
+            {% if issues %}
+                {% for issue in issues %}
+                    <li>
+                        <a href="{% url 'issue_detail' issue.id %}">{{ issue.title }}</a>
+                        <small>{{ issue.subtitle }}</small>
+                        <small>{{ issue.writer }}</small>
+                    </li>
+                {% endfor %}
+            {% else %}
+                <h4>Issues are not found</h4>
+            {% endif %}
+        </ul>
+    </div>
+{% endblock %}

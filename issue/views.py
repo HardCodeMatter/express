@@ -46,6 +46,18 @@ def issue_create_view(request: HttpResponse) -> HttpResponse:
     return render(request, 'issue/issue_create.html', context)
 
 
+def issue_search_view(request: HttpResponse) -> HttpResponse:
+    query = request.GET.get('query_issue', "")
+
+    issues: Issue = Issue.objects.filter(title__icontains=query)
+
+    context = {
+        'issues': issues,
+    }
+
+    return render(request, 'issue/issue_search.html', context)
+
+
 def tag_list_view(request: HttpResponse) -> HttpResponse:
     tags: Tag = Tag.objects.all()
 
