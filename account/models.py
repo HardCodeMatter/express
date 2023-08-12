@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
 from django.utils import timezone
+
 from account.managers import AccountManager
 
 
@@ -11,6 +12,9 @@ class AccountRole(models.Model):
     is_update_role = models.BooleanField('Update role', blank=True, default=False)
     is_assign_role = models.BooleanField('Assign role', blank=True, default=False)
     is_remove_role = models.BooleanField('Remove role', blank=True, default=False)
+
+    is_update_issue = models.BooleanField('Update issue', blank=True, default=False)
+    is_remove_issue = models.BooleanField('Remove issue', blank=True, default=False)
 
     def __str__(self) -> str:
         return self.name
