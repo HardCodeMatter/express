@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
+from django.db.models import Q
 
 from issue.models import Issue, Tag
 from issue.forms import IssueForm, TagForm
@@ -47,9 +48,14 @@ def issue_create_view(request: HttpResponse) -> HttpResponse:
 
 
 def issue_search_view(request: HttpResponse) -> HttpResponse:
-    query = request.GET.get('query_issue', "")
+    search = request.GET.get('search')
 
-    issues: Issue = Issue.objects.filter(title__icontains=query)
+    issues: Issue = None
+
+    if search:
+        issues = Issue.objects.filter(Q(title__icontains=search) | Q(content__icontains=search))
+    else:
+        issues = Issue.objects.all().order_by('-date_published')
 
     context = {
         'issues': issues,
